@@ -1,0 +1,24 @@
+name: Monitor Taberna
+
+on:
+  schedule:
+    - cron: '0 */4 * * *' # Roda sozinho a cada 4 horas
+  workflow_dispatch: # Deixa você rodar na mão quando quiser
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar bibliotecas
+        run: pip install requests beautifulsoup4
+
+      - name: Rodar o monitor
+        run: python monitor.py
